@@ -2,11 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import Marquee from "react-fast-marquee";
 import Header from "../components/Header";
+import Layout from "../components/Layout";
 
 const Home = () => {
   return (
     <div>
-      <div>
+      <Layout>
         <Header />
         <MainForm>
           <MarqueeW>
@@ -42,18 +43,12 @@ const Home = () => {
             <BoxP>작성자</BoxP>
           </StBox>
         </Test>
-      </div>
+      </Layout>
     </div>
   );
 };
 
 export default Home;
-
-// const AllBackGroundColor = styled.div`
-//   max-width: 100%;
-//   max-height: 100vh;
-//   background-color: #fffbe6;
-// `;
 
 const MainForm = styled.form`
   width: 80%;
@@ -71,7 +66,7 @@ const Test = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 70%;
+  width: 90%;
   gap: 45px;
 `;
 
@@ -80,7 +75,7 @@ const MarqueeW = styled.div`
 `;
 
 const StBox = styled.div`
-  width: 300px;
+  width: 30%;
   height: 250px;
   display: flex;
   flex-direction: column;
