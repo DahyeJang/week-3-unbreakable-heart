@@ -1,17 +1,20 @@
 import React from "react";
 import CustomButton from "../components/CustomButton";
 import styled from "styled-components";
-const Header = styled.div`
-  width: 80%;
-  height: 60px;
-  background: black;
-  margin: 0 auto;
-  border-radius: 0% 0% 50px 50px;
-  color: orange;
-  padding-left: 30px;
-  padding-top: 20px;
-  font-size: 1.5em;
-`;
+import Header from "../components/Header";
+import Layout from "../components/Layout";
+
+// const Header = styled.div`
+//   width: 80%;
+//   height: 60px;
+//   background: black;
+//   margin: 0 auto;
+//   border-radius: 0% 0% 50px 50px;
+//   color: orange;
+//   padding-left: 30px;
+//   padding-top: 20px;
+//   font-size: 1.5em;
+// `;
 const ContentBox = styled.div`
   width: 70%;
   height: 600px;
@@ -61,8 +64,8 @@ const Write = () => {
     "font-size: 18px; width : 20%; height : fit-content;  border : none; margin : 20px   auto;" +
     "background: black; color : orange; border-radius :20px;";
   return (
-    <div id="body">
-      <Header>Home</Header>
+    <Layout>
+      <Header />
       <ContentBox>
         <ContentLiner>
           <div>
@@ -79,7 +82,7 @@ const Write = () => {
         <ContentTextArea></ContentTextArea>
         <CustomButton value="글쓰기" css={buttonCss}></CustomButton>
       </ContentBox>
-    </div>
+    </Layout>
   );
 };
 
