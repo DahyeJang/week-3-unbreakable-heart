@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "../img/logo.png";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <StHeader>
-      <Stlogo src={logo}></Stlogo>
+      <Link to="/">
+        <Stlogo src={logo} />
+      </Link>
       <StSubject>중요한 것은 꺾이지 않는 마음</StSubject>
     </StHeader>
   );
@@ -13,27 +16,9 @@ const Header = () => {
 
 export default Header;
 
-// const HeaderLink = styled(Link)`
-//   text-decoration: none;
-// `;
-
-// const HeaderSt = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-around;
-//   align-items: center;
-//   margin: 0 auto;
-//   width: 80%;
-//   height: 70px;
-//   border-bottom-left-radius: 20px;
-//   border-bottom-right-radius: 20px;
-//   border: 1px solid black;
-//   background-color: #1e1e1e;
-//   color: white;
-//   font-size: 20px;
-// `;
-
 const StHeader = styled.div`
+  width: 80%;
+  margin: auto;
   display: flex;
   flex-direction: row;
   border-bottom-left-radius: 20px;

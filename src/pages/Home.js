@@ -22,26 +22,6 @@ const Home = () => {
             <BoxH2>타이틀</BoxH2>
             <BoxP>작성자</BoxP>
           </StBox>
-          <StBox>
-            <BoxH2>타이틀</BoxH2>
-            <BoxP>작성자</BoxP>
-          </StBox>
-          <StBox>
-            <BoxH2>타이틀</BoxH2>
-            <BoxP>작성자</BoxP>
-          </StBox>
-          <StBox>
-            <BoxH2>타이틀</BoxH2>
-            <BoxP>작성자</BoxP>
-          </StBox>
-          <StBox>
-            <BoxH2>타이틀</BoxH2>
-            <BoxP>작성자</BoxP>
-          </StBox>
-          <StBox>
-            <BoxH2>타이틀</BoxH2>
-            <BoxP>작성자</BoxP>
-          </StBox>
         </Test>
       </Layout>
     </div>
@@ -51,7 +31,6 @@ const Home = () => {
 export default Home;
 
 const MainForm = styled.form`
-  width: 80%;
   margin: 30px auto 0;
   /* border: 1px solid black; */
   display: flex;
@@ -66,7 +45,7 @@ const Test = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 90%;
+  width: 80%;
   gap: 45px;
 `;
 
