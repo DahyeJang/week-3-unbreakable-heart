@@ -10,7 +10,7 @@ const DetailPlan = () => {
           <button>삭제</button>
         </StTop>
         <StName>중꺾마</StName>
-        <h1>리액트 마스터하기!!</h1>
+        <h1>리액트 마스터하기</h1>
         <StHr />
         <StBody>이번년도에 리액트 마스터해서 취업하겠습니다!</StBody>
       </StContent>
