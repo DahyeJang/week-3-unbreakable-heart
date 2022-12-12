@@ -7,6 +7,7 @@ import styled from "styled-components";
 
 function CustomButton(props) {
   let buttonCss = props.css;
+  let hoverCss = props.hover;
   if (buttonCss === "mode_1") {
     buttonCss =
       "border :none; background : black; color: white; font-size :22px;  ";
@@ -14,10 +15,13 @@ function CustomButton(props) {
 
   const StyledButton = styled.button`
     ${buttonCss}
+    :hover {
+      ${hoverCss}
+    }
   `;
   return (
     <>
-      <StyledButton>{props.value}</StyledButton>
+      <StyledButton onClick={props.onClick}>{props.value}</StyledButton>
     </>
   );
 }
