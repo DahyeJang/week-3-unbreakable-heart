@@ -1,20 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomButton from "../components/CustomButton";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
+import { useDispatch } from "react-redux";
+import { __createPlans } from "../redux/modules/plansSlicer";
+import { useNavigate } from "react-router-dom";
 
-// const Header = styled.div`
-//   width: 80%;
-//   height: 60px;
-//   background: black;
-//   margin: 0 auto;
-//   border-radius: 0% 0% 50px 50px;
-//   color: orange;
-//   padding-left: 30px;
-//   padding-top: 20px;
-//   font-size: 1.5em;
-// `;
 const ContentBox = styled.div`
   width: 70%;
   height: 600px;
@@ -59,10 +51,30 @@ const ContentTextArea = styled.textarea`
   padding: 3%;
   display: flex;
 `;
+//css
 const Write = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [post, setPost] = useState({
+    name: "",
+    title: "",
+    content: "",
+  });
+
+  function createHandler() {
+    console.log("access createHandle");
+    console.log(post);
+    dispatch(__createPlans(post));
+    navigate("/");
+  }
+
+  console.log(post);
+
   const buttonCss =
     "font-size: 18px; width : 20%; height : fit-content;  border : none; margin : 20px   auto;" +
-    "background: black; color : orange; border-radius :20px;";
+    "background: black; color : orange; border-radius :20px; ";
+
+  const hoverCss = "background-color:#FF5F00; color:black; transition: 0.7s;";
   return (
     <Layout>
       <Header />
@@ -70,17 +82,52 @@ const Write = () => {
         <ContentLiner>
           <div>
             <div className="CL_label">작성자 : </div>
-            <input type="text" className="CL_content"></input>
+            <input
+              type="text"
+              className="CL_content"
+              onChange={(e) => {
+                const { value } = e.target;
+                setPost({
+                  ...post,
+                  name: value,
+                });
+              }}
+            ></input>
           </div>
         </ContentLiner>
         <ContentLiner>
           <div>
             <div className="CL_label">제목 :</div>
-            <input type="text" className="CL_content"></input>
+            <input
+              type="text"
+              className="CL_content"
+              onChange={(e) => {
+                const { value } = e.target;
+                setPost({
+                  ...post,
+                  title: value,
+                });
+              }}
+            ></input>
           </div>
         </ContentLiner>
-        <ContentTextArea></ContentTextArea>
-        <CustomButton value="글쓰기" css={buttonCss}></CustomButton>
+        <ContentTextArea
+          onChange={(e) => {
+            const { value } = e.target;
+            setPost({
+              ...post,
+              content: value,
+            });
+          }}
+        ></ContentTextArea>
+        <CustomButton
+          value="글쓰기"
+          css={buttonCss}
+          hover={hoverCss}
+          onClick={() => {
+            createHandler();
+          }}
+        ></CustomButton>
       </ContentBox>
     </Layout>
   );
