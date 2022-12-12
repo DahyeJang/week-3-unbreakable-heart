@@ -2,15 +2,29 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { __getPlans } from "../redux/modules/plansSlicer";
+import { __getPlans, __deletePlans } from "../redux/modules/plansSlicer";
 import { useEffect } from "react";
+import CustomButton from "./CustomButton";
 const DetailPlan = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const buttonCss =
+    " font-size: 22px; width :10%; : fit-content; height : fit-content;  border : none; background: black; color : orange; border-radius :20px;";
+  const hoverCss = "background-color:#FF5F00; color:black; transition: 0.7s;";
   useEffect(() => {
     dispatch(__getPlans());
   }, [dispatch]);
+
+  function deleteHandler(id) {
+    console.log("approcing delete");
+    console.log(id);
+    dispatch(__deletePlans({ id }));
+    navigate("/");
+  }
+  function goUpdatePage(id) {
+    console.log("approcing delete");
+    navigate(`/detail/:${id}/update`);
+  }
   const params = useParams();
   const { plans } = useSelector((state) => state.plans);
   const total = plans.filter((plan) => plan.id === params.id);
@@ -20,8 +34,22 @@ const DetailPlan = () => {
       {total?.map((total) => (
         <StContent>
           <StTop>
-            <button>수정</button>
-            <button>삭제</button>
+            <CustomButton
+              value="수정"
+              css={buttonCss}
+              hover={hoverCss}
+              onClick={() => {
+                goUpdatePage(total.id);
+              }}
+            ></CustomButton>
+            <CustomButton
+              value="삭제"
+              css={buttonCss}
+              hover={hoverCss}
+              onClick={() => {
+                deleteHandler(total.id);
+              }}
+            ></CustomButton>
           </StTop>
           <StName>{total.name}</StName>
           <h1>{total.title}</h1>

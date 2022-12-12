@@ -14,8 +14,9 @@ export const __createPlans = createAsyncThunk(
     console.log(payload);
     try {
       const data = await axios.post("http://localhost:3001/plans", payload);
-      console.log("this?");
-      return thunkAPI.fulfillWithValue(data);
+      console.log("data?");
+      console.log(data.data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log("this2?");
       console.log(error);
@@ -32,6 +33,21 @@ export const __getPlans = createAsyncThunk(
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const __deletePlans = createAsyncThunk(
+  "todos/deleteTodos",
+  async (payload, thunkAPI) => {
+    try {
+      console.log(payload);
+      const data = await axios.delete(
+        `http://localhost:3001/plans/${payload.id}`
+      );
+
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -64,9 +80,19 @@ export const plansSlice = createSlice({
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
       console.log("action.payload");
       console.log(action.payload.data);
-      state.todos = [...state.plans, action.payload.data];
+      state.plans = [...state.plans, action.payload.data];
       console.log(state.plans);
       // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
+    },
+    [__deletePlans.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__deletePlans.rejected]: (state) => {
+      state.isLoading = false;
+      state.plans = state.plans;
+    },
+    [__deletePlans.fulfilled]: (state) => {
+      state.plans = state.plans;
     },
   },
 });

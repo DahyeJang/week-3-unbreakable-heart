@@ -58,7 +58,7 @@ const Write = () => {
   const [post, setPost] = useState({
     name: "",
     title: "",
-    content: "",
+    body: "",
   });
 
   function createHandler() {
@@ -116,7 +116,7 @@ const Write = () => {
             const { value } = e.target;
             setPost({
               ...post,
-              content: value,
+              body: value,
             });
           }}
         ></ContentTextArea>
