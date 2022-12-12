@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
 function CommentList() {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
+  console.log("id", id);
   return (
     <>
       <StForm>
