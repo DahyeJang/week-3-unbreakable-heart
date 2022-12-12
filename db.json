@@ -25,12 +25,6 @@
       "body": "테스트내용3입니다. body가 들어갑니다."
     }
   ],
-  "plan": {
-    "id": "",
-    "name": "",
-    "title": "",
-    "body": ""
-  },
   "comments": [
     {
       "id": "1",
@@ -44,11 +38,5 @@
       "name": "2번째",
       "content": "1번째 플랜 2코멘트"
     }
-  ],
-  "comment": {
-    "id": "",
-    "planId": "",
-    "name": "",
-    "content": ""
-  }
+  ]
 }
