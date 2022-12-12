@@ -1,0 +1,42 @@
+{
+  "plans": [
+    {
+      "id": "1",
+      "name": "중꺾마",
+      "title": "리액트 공부",
+      "body": "리액트 뿌셔뿌셔하기"
+    },
+    {
+      "id": "2",
+      "name": "1조짱짱",
+      "title": "리덕트 공부",
+      "body": "리덕트 완벽 이해하기"
+    }
+  ],
+  "plan": {
+    "id": "",
+    "name": "",
+    "title": "",
+    "body": ""
+  },
+  "comments": [
+    {
+      "id": "",
+      "planId": "",
+      "name": "",
+      "content": ""
+    },
+    {
+      "id": "",
+      "planId": "",
+      "name": "",
+      "content": ""
+    }
+  ],
+  "comment": {
+    "id": "",
+    "planId": "1",
+    "name": "",
+    "content": ""
+  }
+}
