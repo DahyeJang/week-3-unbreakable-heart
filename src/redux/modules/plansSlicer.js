@@ -7,6 +7,28 @@ const initialState = {
   isLoading: false,
   error: null,
 };
+
+export const __updatePlans = createAsyncThunk(
+  "plans/updatePans",
+  async (payload, thunkAPI) => {
+    console.log("payload_update");
+    console.log(payload);
+    const { id, ...rest } = payload;
+    console.log(id);
+    console.log("...rest");
+    console.log(rest); // 와 ㅅㅂ 뒤질뻔햇네.
+    try {
+      const data = axios.patch(`http://localhost:3001/plans/${id}`, rest);
+      console.log("data?");
+      console.log(data.data);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log("this2?");
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 export const __createPlans = createAsyncThunk(
   "plans/createPlans",
   async (payload, thunkAPI) => {
