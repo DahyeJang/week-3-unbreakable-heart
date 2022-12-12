@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
 const DetailPlan = () => {
+  const { id } = useParams();
+
   return (
     <>
       <StContent>
