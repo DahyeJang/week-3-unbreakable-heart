@@ -38,7 +38,6 @@ const Home = () => {
         </MainForm>
         <Test>
           {plans.map((plan) => {
-            console.log(plan);
             return (
               <StBox key={plan.id}>
                 <BoxH2>{plan.title}</BoxH2>
