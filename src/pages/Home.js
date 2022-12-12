@@ -4,19 +4,18 @@ import Marquee from "react-fast-marquee";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
-import { plansSlice, __getPlans } from "../redux/modules/plansSlicer";
+import { useNavigate } from "react-router-dom";
+import { __getPlans } from "../redux/modules/plansSlicer";
 import CustomButton from "../components/CustomButton";
+
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoading, error, plans } = useSelector((state) => state.plans);
 
-  console.log(plans);
-
   useEffect(() => {
     dispatch(__getPlans());
-  }, []);
+  }, [dispatch]);
   if (isLoading) {
     return <div>로딩 중....</div>;
   }
@@ -24,29 +23,29 @@ const Home = () => {
   if (error) {
     return <div>{error.message}</div>;
   }
-
+  const onSubmitH = () => {
+    navigate("/write");
+  };
   return (
     <div>
       <Layout>
         <Header></Header>
-        <MainForm>
+        <MainForm
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSubmitH();
+          }}
+        >
           <MarqueeW>
             <Marquee gradientWidth={0}>
               <h3>2023년, 꺾이지 않는 계획을 세워보세요! </h3>
             </Marquee>
           </MarqueeW>
-          <CustomButton
-            css="mode1"
-            value="글쓰기"
-            onClick={() => {
-              navigate("/write");
-            }}
-          ></CustomButton>
-          {/* <CustomButton>글쓰기</CustomButton> */}
+          <CustomButton css="mode1" value="글쓰기"></CustomButton>
         </MainForm>
         <Test>
           {plans.map((plan) => (
-            <StBox>
+            <StBox key={plan.id}>
               <BoxH2>{plan.title}</BoxH2>
               <BoxP>{plan.name}</BoxP>
             </StBox>
