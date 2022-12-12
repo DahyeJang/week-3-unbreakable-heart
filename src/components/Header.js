@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../img/logo.png";
 import { Link } from "react-router-dom";
+import CustomButton from "./CustomButton";
 
 const Header = () => {
   return (
@@ -9,6 +10,7 @@ const Header = () => {
       <Link to="/">
         <Stlogo src={logo} />
       </Link>
+
       <StSubject>중요한 것은 꺾이지 않는 마음</StSubject>
     </StHeader>
   );

@@ -1,27 +1,57 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Marquee from "react-fast-marquee";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
+import { plansSlice, __getPlans } from "../redux/modules/plansSlicer";
+import CustomButton from "../components/CustomButton";
 const Home = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLoading, error, plans } = useSelector((state) => state.plans);
+
+  console.log(plans);
+
+  useEffect(() => {
+    dispatch(__getPlans());
+  }, []);
+  if (isLoading) {
+    return <div>로딩 중....</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
   return (
     <div>
       <Layout>
-        <Header />
+        <Header></Header>
         <MainForm>
           <MarqueeW>
             <Marquee gradientWidth={0}>
               <h3>2023년, 꺾이지 않는 계획을 세워보세요! </h3>
             </Marquee>
           </MarqueeW>
+          <CustomButton
+            css="mode1"
+            value="글쓰기"
+            onClick={() => {
+              navigate("/write");
+            }}
+          ></CustomButton>
           {/* <CustomButton>글쓰기</CustomButton> */}
         </MainForm>
         <Test>
-          <StBox>
-            <BoxH2>타이틀</BoxH2>
-            <BoxP>작성자</BoxP>
-          </StBox>
+          {plans.map((plan) => (
+            <StBox>
+              <BoxH2>{plan.title}</BoxH2>
+              <BoxP>{plan.name}</BoxP>
+            </StBox>
+          ))}
+          ;
         </Test>
       </Layout>
     </div>
