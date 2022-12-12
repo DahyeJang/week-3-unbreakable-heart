@@ -30,5 +30,25 @@
     "name": "",
     "title": "",
     "body": ""
+  },
+  "comments": [
+    {
+      "id": "1",
+      "planId": "1",
+      "name": "1번째",
+      "content": "1번째 플랜 1코멘트"
+    },
+    {
+      "id": "2",
+      "planId": "1",
+      "name": "2번째",
+      "content": "1번째 플랜 2코멘트"
+    }
+  ],
+  "comment": {
+    "id": "",
+    "planId": "",
+    "name": "",
+    "content": ""
   }
 }

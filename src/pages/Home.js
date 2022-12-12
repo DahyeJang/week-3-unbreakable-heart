@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { __getPlans } from "../redux/modules/plansSlicer";
 import CustomButton from "../components/CustomButton";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -46,6 +47,9 @@ const Home = () => {
         <Test>
           {plans.map((plan) => (
             <StBox key={plan.id}>
+              <StLink to={`/detail/${plan.id}`}>
+                <StDetail>상세보기</StDetail>
+              </StLink>
               <BoxH2>{plan.title}</BoxH2>
               <BoxP>{plan.name}</BoxP>
             </StBox>
@@ -82,6 +86,11 @@ const MarqueeW = styled.div`
   width: 60%;
 `;
 
+const StDetail = styled.div`
+  margin-top: 20px;
+  text-align: center;
+`;
+
 const StBox = styled.div`
   width: 30%;
   height: 250px;
@@ -96,6 +105,10 @@ const BoxH2 = styled.h2`
   justify-content: center;
   align-items: center;
   height: 70%;
+`;
+
+const StLink = styled(Link)`
+  text-decoration: none;
 `;
 
 const BoxP = styled.p`
