@@ -11,6 +11,10 @@ function CustomButton(props) {
   if (buttonCss === "mode_1") {
     buttonCss =
       "border :none; background : black; color: white; font-size :22px;  ";
+  } else if (buttonCss === "mode_2") {
+    console.log("btn2");
+    const buttonCss =
+      "font-size: 22px; width :10%; : fit-content; height : fit-content;  border : none; background: black; color : orange; border-radius :20px;";
   }
 
   const StyledButton = styled.button`
