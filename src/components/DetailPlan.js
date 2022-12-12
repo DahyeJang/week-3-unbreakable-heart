@@ -23,7 +23,7 @@ const DetailPlan = () => {
   }
   function goUpdatePage(id) {
     console.log("approcing delete");
-    navigate(`/detail/:${id}/update`);
+    navigate(`/detail/${id}/update`);
   }
   const params = useParams();
   const { plans } = useSelector((state) => state.plans);
