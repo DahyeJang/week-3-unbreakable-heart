@@ -3,13 +3,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  plans: [],
+  plan: {},
   isLoading: false,
   error: null,
 };
 
-export const __getPlans = createAsyncThunk(
-  "todos/getPlans",
+export const __getTodoByID = createAsyncThunk(
+  "plans/getTodoByID",
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get("http://localhost:3001/plans");
