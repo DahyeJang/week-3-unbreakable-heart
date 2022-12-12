@@ -2,22 +2,33 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { __getPlans } from "../redux/modules/plansSlicer";
+import { useEffect } from "react";
 const DetailPlan = () => {
-  const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    dispatch(__getPlans());
+  }, [dispatch]);
+  const params = useParams();
+  const { plans } = useSelector((state) => state.plans);
+  const total = plans.filter((plan) => plan.id === params.id);
+  console.log(total);
   return (
     <>
-      <StContent>
-        <StTop>
-          <button>수정</button>
-          <button>삭제</button>
-        </StTop>
-        <StName>중꺾마</StName>
-        <h1>리액트 마스터하기</h1>
-        <StHr />
-        <StBody>이번년도에 리액트 마스터해서 취업하겠습니다!</StBody>
-      </StContent>
+      {total?.map((total) => (
+        <StContent>
+          <StTop>
+            <button>수정</button>
+            <button>삭제</button>
+          </StTop>
+          <StName>{total.name}</StName>
+          <h1>{total.title}</h1>
+          <StHr />
+          <StBody>{total.body}</StBody>
+        </StContent>
+      ))}
     </>
   );
 };
