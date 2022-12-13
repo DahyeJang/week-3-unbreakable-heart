@@ -39,28 +39,10 @@
   ],
   "comments": [
     {
-      "id": "1",
+      "id": 1,
       "planId": "1",
-      "name": "1번째",
-      "content": "1번째 플랜 1코멘트"
-    },
-    {
-      "id": "2",
-      "planId": "1",
-      "name": "2번째",
-      "content": "1번째 플랜 2코멘트"
-    },
-    {
-      "id": "Gql4_s8",
-      "planId": "1",
-      "name": "ddd",
-      "content": "ddd"
-    },
-    {
-      "id": "jqegUn4",
-      "planId": "1",
-      "name": "dddd",
-      "content": "ddd"
+      "name": "dd",
+      "content": "dd"
     }
   ]
 }
