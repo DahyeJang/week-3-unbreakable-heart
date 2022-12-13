@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { __getComments } from "../redux/modules/commentsSlicer";
 
 function CommentList() {
   const dispatch = useDispatch();
+  const comments = useSelector((state) => state.comments.comments);
   const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(__getComments(id));
+  }, [dispatch, id]);
 
   return (
     <>
@@ -13,16 +19,6 @@ function CommentList() {
         <div>
           <StName>닉네임</StName>
           <StComment>응원합니다! 힘내세요!</StComment>
-        </div>
-        <StTop>
-          <button>수정</button>
-          <button>삭제</button>
-        </StTop>
-      </StForm>
-      <StForm>
-        <div>
-          <StName>닉네임</StName>
-          <span>응원합니다! 힘내세요!</span>
         </div>
         <StTop>
           <button>수정</button>

@@ -36,12 +36,12 @@ export const __createPlans = createAsyncThunk(
     console.log(payload);
     try {
       const data = await axios.post("http://localhost:3001/plans", payload);
-      console.log("data?");
-      console.log("data.data", data.data);
+      //console.log("data?");
+      //console.log("data.data", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("this2?");
-      console.log(error);
+      //console.log("this2?");
+      //console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -51,10 +51,10 @@ export const __getPlans = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get("http://localhost:3001/plans");
-      console.log(data); // 잘처리되면 fullfiled
+      // console.log(data); // 잘처리되면 fullfiled
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   }

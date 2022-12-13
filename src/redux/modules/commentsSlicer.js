@@ -19,25 +19,37 @@ export const __createComments = createAsyncThunk(
   }
 );
 
-export const plansSlice = createSlice({
+export const __getComments = createAsyncThunk(
+  "comments/getComments",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.get("http://localhost:3001/comments", payload);
+      //console.log("data", data);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const commentsSlice = createSlice({
   name: "comments",
   initialState,
   reducers: {},
   extraReducers: {
     [__createComments.rejected]: (state, action) => {
-      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.comments = state.comments; // catch 된 error 객체를 state.error에 넣습니다.
+      state.isLoading = false;
+      state.comments = state.comments;
     },
     [__createComments.pending]: (state) => {
-      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+      state.isLoading = true;
     },
     [__createComments.fulfilled]: (state, action) => {
-      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isLoading = false;
       state.comments = [...state.comments, action.payload.data];
-      // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
     },
   },
 });
 
-export const {} = plansSlice.actions;
-export default plansSlice.reducer;
+export const {} = commentsSlice.actions;
+export default commentsSlice.reducer;
