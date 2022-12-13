@@ -1,45 +1,43 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"; // 썽크함수 추가
+import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  todos: [],
+  comments: [],
   isLoading: false,
   error: null,
 };
-
-export const __getTodos = createAsyncThunk(
-  "todos/getTodos",
+export const __createComments = createAsyncThunk(
+  "comments/createComments",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/todos");
-      //return thunkAPI.fulfillWithValue(data.data); //axios가 정상적으로 처리되었는지 , fulfill
-      console.log(data);
+      const data = await axios.post("http://localhost:3001/comments", payload);
+      return thunkAPI.fulfillWithValue(data);
     } catch (error) {
-      //return thunkAPI.rejectWithValue(error); //axios가 실패했는지 , reject
-      console.log(error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-export const todosSlice = createSlice({
-  name: "todos",
+export const plansSlice = createSlice({
+  name: "comments",
   initialState,
   reducers: {},
   extraReducers: {
-    [__getTodos.pending]: (state) => {
-      state.isLoading = true;
+    [__createComments.rejected]: (state, action) => {
+      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.comments = state.comments; // catch 된 error 객체를 state.error에 넣습니다.
     },
-    [__getTodos.fulfilled]: (state, action) => {
-      console.log("fulfilled 상태", state, action);
-      state.isLoading = false;
-      state.todos = action.payload;
+    [__createComments.pending]: (state) => {
+      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
     },
-    [__getTodos.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
+    [__createComments.fulfilled]: (state, action) => {
+      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.comments = [...state.comments, action.payload.data];
+      // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
     },
   },
 });
 
-export const {} = todosSlice.actions;
-export default todosSlice.reducer;
+export const {} = plansSlice.actions;
+export default plansSlice.reducer;
