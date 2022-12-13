@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const aaa = useSelector((state) => state);
+  console.log(aaa);
   const { isLoading, error, plans } = useSelector((state) => state.plans);
 
   useEffect(() => {

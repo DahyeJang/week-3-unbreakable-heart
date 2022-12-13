@@ -7,7 +7,6 @@ function CommentList() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  console.log("id", id);
   return (
     <>
       <StForm>

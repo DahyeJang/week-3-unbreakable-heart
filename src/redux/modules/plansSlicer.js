@@ -37,7 +37,7 @@ export const __createPlans = createAsyncThunk(
     try {
       const data = await axios.post("http://localhost:3001/plans", payload);
       console.log("data?");
-      console.log(data.data);
+      console.log("data.data", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log("this2?");

@@ -2,58 +2,36 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import nextId from "react-id-generator";
-import { __createComments } from "../redux/modules/comments";
-import useInput from "./hooks/useInput";
+import { __createComments } from "../redux/modules/commentsSlicer";
 
 function CommentAdd() {
-  // const [name, onChangeNameHandler] = useInput();
-  // const [content, onChangeContentHandler] = useInput();
+  const dispatch = useDispatch();
 
-  const newId = nextId();
   const { id } = useParams();
-  const { isLoading, error, plans } = useSelector((state) => state.comments);
-  console.log("state", state);
-
-  // useEffect(() => {
-  //   dispatch(__getPlans());
-  // }, [dispatch]);
-  // if (isLoading) {
-  //   return <div>로딩 중....</div>;
-  // }
-
-  // if (error) {
-  //   return <div>{error.message}</div>;
-  // }
 
   const basicComment = {
     id: "",
-    planId: "id",
+    planId: `${id}`,
     name: "",
     content: "",
   };
 
-  const [comment, setComment] = useState({ basicComment });
-  const dispatch = useDispatch();
+  const [comment, setComment] = useState(basicComment);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setComment({ ...comment, [name]: value });
   };
 
-  const onSubmitHandler = (event) => {
+  const createHandler = (event) => {
     event.preventDefault();
-
-    if (comment.name.trim() === "" || comment.content.trim() === "") return;
-
-    dispatch(__createComments({ ...comment, newId }));
-    setComment(basicComment);
+    dispatch(__createComments(comment));
   };
 
   return (
     <>
       <StH1>메시지 남기기✏</StH1>
-      <StForm onSubmit={onSubmitHandler}>
+      <StForm onSubmit={createHandler}>
         <StInputGroup>
           닉네임
           <StInput
@@ -65,7 +43,7 @@ function CommentAdd() {
           댓글
           <StInput2
             type="text"
-            name="name"
+            name="content"
             value={comment.content}
             onChange={onChangeHandler}
           ></StInput2>
