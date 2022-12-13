@@ -1,29 +1,36 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { __getComment } from "../redux/modules/comments";
+import { useNavigate, useParams } from "react-router-dom";
+import { __getComment, __deleteComments } from "../redux/modules/comments";
 
 function CommentList() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { id } = useParams();
   useEffect(() => {
     dispatch(__getComment());
   }, []);
   const commentT = useSelector((state) => state.comments.comments);
+
+  const onDeleteTodo = (id) => {
+    dispatch(__deleteComments(id));
+  };
+
   return (
     <>
       {commentT.map((comment) => {
         if (comment.planId === id) {
           return (
-            <StForm>
+            <StForm key={comment.id}>
               <div>
                 <StName>{comment.name}</StName>
                 <StComment>{comment.content}</StComment>
               </div>
               <StTop>
                 <button>수정</button>
-                <button>삭제</button>
+                <button onClick={() => onDeleteTodo(comment.id)}>삭제</button>
               </StTop>
             </StForm>
           );
