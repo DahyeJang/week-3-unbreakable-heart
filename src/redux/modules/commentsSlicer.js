@@ -19,21 +19,21 @@ export const __createComments = createAsyncThunk(
   }
 );
 
-export const __getComments = createAsyncThunk(
-  "comments/getComments",
-  async (payload, thunkAPI) => {
-    try {
-      const data = await axios.get(
-        `"http://localhost:3001/comments${id}"`,
-        payload
-      );
-      console.log("data", data);
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
+// export const __getComments = createAsyncThunk(
+//   "comments/getComments",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const data = await axios.get(
+//         `"http://localhost:3001/comments${id}"`,
+//         payload
+//       );
+//       console.log("data", data);
+//       return thunkAPI.fulfillWithValue(data.data);
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error);
+//     }
+//   }
+// );
 
 export const commentsSlice = createSlice({
   name: "comments",
