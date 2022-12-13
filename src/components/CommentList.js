@@ -6,12 +6,16 @@ import { __getComments } from "../redux/modules/commentsSlicer";
 
 function CommentList() {
   const dispatch = useDispatch();
-  const comments = useSelector((state) => state.comments.comments);
-  const { id } = useParams();
+  //const comments = useSelector((state) => state.comments.comments);
 
-  useEffect(() => {
-    dispatch(__getComments(id));
-  }, [dispatch, id]);
+  const params = useParams();
+  const { comments } = useSelector((state) => state.comments);
+  const commentlist = comments.filter((comment) => comment.id === params.id);
+  console.log("commentlist", commentlist);
+
+  // useEffect(() => {
+  //   dispatch(__getComments(id));
+  // }, [dispatch, id]);
 
   return (
     <>
