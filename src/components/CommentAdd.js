@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { __createComments } from "../redux/modules/commentsSlicer";
+import { __createComments } from "../redux/modules/comments";
 
 function CommentAdd() {
   const dispatch = useDispatch();

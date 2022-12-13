@@ -5,7 +5,6 @@ import { configureStore } from "@reduxjs/toolkit";
  * import 해온 것은 slice.reducer 입니다.
  */
 import plans from "../modules/plansSlicer";
-import comments from "../modules/commentsSlicer";
 import comments from "../modules/comments";
 
 /**
