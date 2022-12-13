@@ -1,35 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { __getComment } from "../redux/modules/comments";
 
 function CommentList() {
   const dispatch = useDispatch();
   const { id } = useParams();
-
-  console.log("id", id);
+  useEffect(() => {
+    dispatch(__getComment());
+  }, []);
+  const commentT = useSelector((state) => state.comments.comments);
   return (
     <>
-      <StForm>
-        <div>
-          <StName>닉네임</StName>
-          <StComment>응원합니다! 힘내세요!</StComment>
-        </div>
-        <StTop>
-          <button>수정</button>
-          <button>삭제</button>
-        </StTop>
-      </StForm>
-      <StForm>
-        <div>
-          <StName>닉네임</StName>
-          <span>응원합니다! 힘내세요!</span>
-        </div>
-        <StTop>
-          <button>수정</button>
-          <button>삭제</button>
-        </StTop>
-      </StForm>
+      {commentT.map((comment) => {
+        if (comment.planId === id) {
+          return (
+            <StForm>
+              <div>
+                <StName>{comment.name}</StName>
+                <StComment>{comment.content}</StComment>
+              </div>
+              <StTop>
+                <button>수정</button>
+                <button>삭제</button>
+              </StTop>
+            </StForm>
+          );
+        } else {
+          return null;
+        }
+      })}
     </>
   );
 }

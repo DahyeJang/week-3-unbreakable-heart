@@ -5,7 +5,7 @@ import { configureStore } from "@reduxjs/toolkit";
  * import 해온 것은 slice.reducer 입니다.
  */
 import plans from "../modules/plansSlicer";
-
+import comments from "../modules/comments";
 /**
  * 모듈(Slice)이 여러개인 경우
  * 추가할때마다 reducer 안에 각 모듈의 slice.reducer를 추가해줘야 합니다.
@@ -14,7 +14,7 @@ import plans from "../modules/plansSlicer";
  * 이것을 각각 모듈로 구현한 다음에 아래 코드로 2개의 모듈을 스토어에 연결해준 것 입니다.
  */
 const store = configureStore({
-  reducer: { plans: plans },
+  reducer: { plans, comments },
 });
 
 export default store;
