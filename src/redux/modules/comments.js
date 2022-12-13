@@ -2,41 +2,40 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"; // 썽크함�
 import axios from "axios";
 
 const initialState = {
-  todos: [],
+  comments: [],
   isLoading: false,
   error: null,
 };
 
-export const __getTodos = createAsyncThunk(
-  "todos/getTodos",
+export const __getComment = createAsyncThunk(
+  "comments/getcomments",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/todos");
+      const data = await axios.get("http://localhost:3001/comments");
       //return thunkAPI.fulfillWithValue(data.data); //axios가 정상적으로 처리되었는지 , fulfill
-      console.log(data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       //return thunkAPI.rejectWithValue(error); //axios가 실패했는지 , reject
-      console.log(error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
 export const todosSlice = createSlice({
-  name: "todos",
+  name: "comments",
   initialState,
   reducers: {},
   extraReducers: {
-    [__getTodos.pending]: (state) => {
-      state.isLoading = true;
+    [__getComment.pending]: (state) => {
+      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
     },
-    [__getTodos.fulfilled]: (state, action) => {
-      console.log("fulfilled 상태", state, action);
-      state.isLoading = false;
-      state.todos = action.payload;
+    [__getComment.fulfilled]: (state, action) => {
+      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.comments = action.payload; // Store에 있는 plans에 서버에서 가져온 plans를 넣습니다.
     },
-    [__getTodos.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
+    [__getComment.rejected]: (state, action) => {
+      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
   },
 });
