@@ -54,7 +54,6 @@ const Home = () => {
               <BoxP>{plan.name}</BoxP>
             </StBox>
           ))}
-          ;
         </Test>
       </Layout>
     </div>

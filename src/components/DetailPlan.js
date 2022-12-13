@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { __getPlans } from "../redux/modules/plansSlicer";
+import { __deletePlans, __getPlans } from "../redux/modules/plansSlicer";
 import { useEffect } from "react";
 const DetailPlan = () => {
   const dispatch = useDispatch();
@@ -14,14 +14,20 @@ const DetailPlan = () => {
   const params = useParams();
   const { plans } = useSelector((state) => state.plans);
   const total = plans.filter((plan) => plan.id === params.id);
-  console.log(total);
+  const onDeleteHandler = ({ id }) => {
+    dispatch(__deletePlans({ id }));
+    navigate("/");
+  };
+  const onChangeHandler = (id) => {
+    navigate(`/detail/${id}/update`);
+  };
   return (
     <>
-      {total?.map((total) => (
+      {total.map((total) => (
         <StContent>
           <StTop>
-            <button>수정</button>
-            <button>삭제</button>
+            <button onClick={() => onChangeHandler(total.id)}>수정</button>
+            <button onClick={() => onDeleteHandler(total.id)}>삭제</button>
           </StTop>
           <StName>{total.name}</StName>
           <h1>{total.title}</h1>
