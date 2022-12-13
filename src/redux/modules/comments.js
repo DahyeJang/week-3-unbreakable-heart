@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -35,12 +35,12 @@ export const __deleteComments = createAsyncThunk(
   "todos/deleteComments",
   async (payload, thunkAPI) => {
     try {
-      // console.log("payload:", payload);
-      const data = await axios.delete(
-        `http://localhost:3001/comments/${payload}`
-      );
-
-      return thunkAPI.fulfillWithValue(data.data);
+      console.log("payload:", payload);
+      // const data = await axios.delete(
+      //   `http://localhost:3001/comments/${payload}`
+      // );
+      //todos: state.comments.filter((comment) => comment.id !== payload)
+      return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -81,8 +81,13 @@ export const plansSlice = createSlice({
       state.isLoading = false;
       state.comments = state.comments;
     },
-    [__deleteComments.fulfilled]: (state) => {
-      state.comments = state.comments;
+    [__deleteComments.fulfilled]: (state, action) => {
+      //console.log(current(state).comments);
+      //console.log(action);
+      //state.comments = state.comments;
+      state.comments = state.comments.filter(
+        (comment) => comment.id !== action.payload
+      );
     },
   },
 });
