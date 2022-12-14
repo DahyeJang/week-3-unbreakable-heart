@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { __createComments } from "../redux/modules/comments";
 import useIP from "./hooks/useIP";
+import CustomButton from "./CustomButton";
 
 function CommentAdd() {
   const dispatch = useDispatch();
@@ -17,6 +18,9 @@ function CommentAdd() {
     content: "",
   });
 
+  const buttonCss =
+    "background-color: #ff5f00; width: 140px; height: 40px;border-radius: 20px; border: none; color: black; font-weight: 700; font-size: 15px;";
+
   // const onChangeHandler = (event) => {
   //   const { name, value } = event.target;
   //   setComment({ ...comment, [name]: value });
@@ -24,9 +28,9 @@ function CommentAdd() {
 
   const createHandler = (e) => {
     if (comment.name.trim() === "") {
-      alert("닉네임이 비워져 있습니다!");
+      alert("닉네임을 입력해주세요");
     } else if (comment.content.trim() === "") {
-      alert("내용이 비워져 있습니다!");
+      alert("내용을 입력해주세요");
     } else {
       e.preventDefault();
       dispatch(__createComments(comment));
@@ -54,7 +58,7 @@ function CommentAdd() {
             onChange={onChangeHandler}
           ></StInput2>
         </StInputGroup>
-        <StBtn>등록하기</StBtn>
+        <CustomButton css={buttonCss} value="글쓰기"></CustomButton>
       </StForm>
     </>
   );
@@ -99,13 +103,13 @@ const StInput2 = styled.input`
   height: 40px;
 `;
 
-const StBtn = styled.button`
-  background-color: #ff5f00;
-  width: 140px;
-  height: 40px;
-  border-radius: 20px;
-  border: none;
-  color: black;
-  font-weight: 700;
-  font-size: 15px;
-`;
+// const StBtn = styled.button`
+//   background-color: #ff5f00;
+//   width: 140px;
+//   height: 40px;
+//   border-radius: 20px;
+//   border: none;
+//   color: black;
+//   font-weight: 700;
+//   font-size: 15px;
+// `;
