@@ -3,6 +3,7 @@ import styled from "styled-components";
 import logo from "../img/logo.png";
 import { Link } from "react-router-dom";
 import CustomButton from "./CustomButton";
+import Layout from "./Layout";
 
 const Header = () => {
   return (
@@ -10,7 +11,6 @@ const Header = () => {
       <Link to="/">
         <Stlogo src={logo} />
       </Link>
-
       <StSubject>중요한 것은 꺾이지 않는 마음</StSubject>
     </StHeader>
   );
@@ -19,8 +19,7 @@ const Header = () => {
 export default Header;
 
 const StHeader = styled.div`
-  width: 80%;
-  margin: auto;
+  margin-top: 0px;
   display: flex;
   flex-direction: row;
   border-bottom-left-radius: 20px;
@@ -30,6 +29,9 @@ const StHeader = styled.div`
   border: 1px solid #ddd;
   padding: 0 20px;
   background-color: #1e1e1e;
+  /* justify-content: center; */
+  max-width: 1200px;
+  min-width: 800px;
 `;
 
 const Stlogo = styled.img`
@@ -52,9 +54,9 @@ const StSubject = styled.span`
     font-weight: normal;
     font-style: normal;
   }
-  font-family: "NEXON Lv1 Gothic OTF";
+  font-family: "yleeMortalHeartImmortalMemory";
   font-size: 22px;
   font-weight: 700;
   color: white;
-  padding-left: 350px;
+  padding-left: 30px;
 `;
