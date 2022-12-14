@@ -10,8 +10,8 @@ const DetailPlan = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const buttonCss =
-    " font-size: 22px; width :10%; : fit-content; height : fit-content;  border : none; background: black; color : orange; border-radius :20px;";
-  const hoverCss = "background-color:#FF5F00; color:black; transition: 0.7s;";
+    " font-size: 20px; height: 30px; width :10%; border : none; background: #1e1e1e; color : orange; border-radius :20px;";
+  const hoverCss = "background-color:#FF5F00; color:black; transition: 0.6s;";
 
   useED(__getPlans);
 
