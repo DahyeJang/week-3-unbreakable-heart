@@ -15,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    margin-top: 0px;
     /* box-sizing: border-box; */
   }
 `;

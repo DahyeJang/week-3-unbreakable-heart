@@ -9,10 +9,9 @@ import { useNavigate } from "react-router-dom";
 import useIP from "../components/hooks/useIP";
 
 const ContentBox = styled.div`
-  width: 70%;
+  /* width: 70%; */
   height: 600px;
-  margin: 0 auto;
-  margin-top: 10px;
+  margin: 50px auto;
   display: flex;
   flex-direction: column;
   border: 1px solid black;
@@ -24,7 +23,7 @@ const ContentBox = styled.div`
 const ContentLiner = styled.div`
   width: 78%;
   height: 15%;
-  margin: inherit;
+  margin: 20px auto;
 
   .CL_label {
     width: inherit;
@@ -84,8 +83,8 @@ const Write = () => {
     <Layout>
       <Header />
       <ContentBox>
-        <ContentLiner>
-          <div>
+        <div>
+          <ContentLiner>
             <div className="CL_label">작성자 : </div>
             <input
               type="text"
@@ -101,27 +100,27 @@ const Write = () => {
               //   });
               // }}
             ></input>
-          </div>
-        </ContentLiner>
-        <ContentLiner>
-          <div>
-            <div className="CL_label">제목 :</div>
-            <input
-              type="text"
-              name="title"
-              className="CL_content"
-              value={post.title}
-              onChange={writeHandler}
-              // onChange={(e) => {
-              //   const { value } = e.target;
-              //   setPost({
-              //     ...post,
-              //     title: value,
-              //   });
-              // }}
-            ></input>
-          </div>
-        </ContentLiner>
+          </ContentLiner>
+          <ContentLiner>
+            <div>
+              <div className="CL_label">제목 :</div>
+              <input
+                type="text"
+                name="title"
+                className="CL_content"
+                value={post.title}
+                onChange={writeHandler}
+                // onChange={(e) => {
+                //   const { value } = e.target;
+                //   setPost({
+                //     ...post,
+                //     title: value,
+                //   });
+                // }}
+              ></input>
+            </div>
+          </ContentLiner>
+        </div>
         <ContentTextArea
           name="body"
           value={post.body}
