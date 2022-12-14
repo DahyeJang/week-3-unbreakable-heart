@@ -63,8 +63,16 @@ const Write = () => {
   });
 
   function createHandler() {
-    dispatch(__createPlans(post));
-    navigate("/");
+    if (post.name.trim() === "") {
+      alert("닉네임이 비어져 있습니다!");
+    } else if (post.title.trim() === "") {
+      alert("제목이 비어져 있습니다!");
+    } else if (post.body.trim() === "") {
+      alert("내용이 비어져 있습니다!");
+    } else {
+      dispatch(__createPlans(post));
+      navigate("/");
+    }
   }
 
   const buttonCss =

@@ -22,9 +22,16 @@ function CommentAdd() {
   //   setComment({ ...comment, [name]: value });
   // };
 
-  const createHandler = (event) => {
-    event.preventDefault();
-    dispatch(__createComments(comment));
+  const createHandler = (e) => {
+    if (comment.name.trim() === "") {
+      alert("닉네임이 비워져 있습니다!");
+    } else if (comment.content.trim() === "") {
+      alert("내용이 비워져 있습니다!");
+    } else {
+      e.preventDefault();
+      dispatch(__createComments(comment));
+      onChangeHandler(e, { name: "", content: "" });
+    }
   };
 
   return (
