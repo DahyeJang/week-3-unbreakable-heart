@@ -1,17 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { __getComment, __deleteComments } from "../redux/modules/comments";
+import useED from "./hooks/useED";
 
 function CommentList() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { id } = useParams();
-  useEffect(() => {
-    dispatch(__getComment());
-  }, []);
+  useED(__getComment);
+  // useEffect(() => {
+  //   dispatch(__getComment());
+  // }, [dispatch]);
   const commentT = useSelector((state) => state.comments.comments);
 
   const onDeleteTodo = (id) => {

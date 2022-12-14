@@ -1,24 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import Marquee from "react-fast-marquee";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { __getPlans } from "../redux/modules/plansSlicer";
 import CustomButton from "../components/CustomButton";
 import { Link } from "react-router-dom";
+import useED from "../components/hooks/useED";
 
 const Home = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const aaa = useSelector((state) => state);
-  console.log(aaa);
+  // const aaa = useSelector((state) => state);
   const { isLoading, error, plans } = useSelector((state) => state.plans);
-
-  useEffect(() => {
-    dispatch(__getPlans());
-  }, [dispatch]);
+  useED(__getPlans);
+  // useEffect(() => { 위에 커스텀 훅과 같은 기능
+  //   dispatch(__getPlans());
+  // }, [dispatch]);
   if (isLoading) {
     return <div>로딩 중....</div>;
   }

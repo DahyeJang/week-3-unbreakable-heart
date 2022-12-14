@@ -1,27 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { __createComments } from "../redux/modules/comments";
+import useIP from "./hooks/useIP";
 
 function CommentAdd() {
   const dispatch = useDispatch();
 
   const { id } = useParams();
 
-  const basicComment = {
+  const [comment, onChangeHandler] = useIP({
     id: "",
     planId: `${id}`,
     name: "",
     content: "",
-  };
+  });
 
-  const [comment, setComment] = useState(basicComment);
-
-  const onChangeHandler = (event) => {
-    const { name, value } = event.target;
-    setComment({ ...comment, [name]: value });
-  };
+  // const onChangeHandler = (event) => {
+  //   const { name, value } = event.target;
+  //   setComment({ ...comment, [name]: value });
+  // };
 
   const createHandler = (event) => {
     event.preventDefault();
