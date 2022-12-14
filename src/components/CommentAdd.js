@@ -97,8 +97,9 @@ const StBtn = styled.button`
   background-color: #ff5f00;
   width: 140px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 20px;
   border: none;
   color: black;
   font-weight: 700;
+  font-size: 15px;
 `;

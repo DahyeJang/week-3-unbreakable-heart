@@ -29,10 +29,14 @@ const Home = () => {
   const onSubmitH = () => {
     navigate("/write");
   };
+
+  const buttonCss =
+    "background-color: #ff5f00; width: 140px; height: 40px;border-radius: 20px; border: none; color: black; font-weight: 700; font-size: 15px;";
+
   return (
     <div>
       <Layout>
-        <Header></Header>
+        <Header />
         <MainForm
           onSubmit={(e) => {
             e.preventDefault();
@@ -44,7 +48,7 @@ const Home = () => {
               <h3>2023년, 꺾이지 않는 계획을 세워보세요! </h3>
             </Marquee>
           </MarqueeW>
-          <CustomButton css="mode1" value="글쓰기"></CustomButton>
+          <CustomButton css={buttonCss} value="글쓰기"></CustomButton>
         </MainForm>
         <Test>
           {plans.map((plan) => (
@@ -56,7 +60,6 @@ const Home = () => {
               <BoxP>{plan.name}</BoxP>
             </StBox>
           ))}
-          ;
         </Test>
       </Layout>
     </div>
@@ -76,12 +79,12 @@ const MainForm = styled.form`
 `;
 
 const Test = styled.div`
-  margin: 30px auto 0;
+  margin: 40px auto 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 80%;
-  gap: 45px;
+  width: 100%;
+  gap: 40px;
 `;
 
 const MarqueeW = styled.div`
@@ -94,12 +97,13 @@ const StDetail = styled.div`
 `;
 
 const StBox = styled.div`
-  width: 30%;
+  width: 22%;
   height: 250px;
   display: flex;
   flex-direction: column;
   border: 1px solid black;
   border-radius: 20px;
+  border: 2px solid #064f00;
 `;
 
 const BoxH2 = styled.h2`
