@@ -7,12 +7,22 @@ const useInput = (initialState) => {
   const [data, setData] = useState(initialState);
 
   // 3. 핸들러 로직도 구현합니다.
-  const handler = (e) => {
+  const handler = (e, comment) => {
+    console.log(comment);
     const { value, name } = e.target;
-    setData({
-      ...data,
-      [name]: value,
-    });
+    if (comment) {
+      setData({ ...comment });
+    } else {
+      setData({
+        ...data,
+        [name]: value,
+      });
+    }
+
+    // setData({
+    //   ...data,
+    //   [name]: value,
+    // });
   };
 
   // 1. 이 훅은 [ ] 을 반환하는데, 첫번째는 value, 두번째는 핸들러를 반환합니다.
