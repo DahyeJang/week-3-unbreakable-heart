@@ -1,19 +1,58 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { __getPlans, __deletePlans } from "../redux/modules/plansSlicer";
+import useED from "./hooks/useED";
+import CustomButton from "./CustomButton";
 
 const DetailPlan = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const buttonCss =
+    " font-size: 20px; height: 30px; width :10%; border : none; background: #1e1e1e; color : white; border-radius :20px;";
+  const hoverCss = "background-color:#FF5F00; color:black; transition: 0.6s;";
+
+  useED(__getPlans);
+
+  function deleteHandler(id) {
+    dispatch(__deletePlans({ id }));
+    navigate("/");
+  }
+  function goUpdatePage(id) {
+    navigate(`/detail/${id}/update`);
+  }
+  const params = useParams();
+  const { plans } = useSelector((state) => state.plans);
+  const total = plans.filter((plan) => plan.id === params.id);
   return (
     <>
-      <StContent>
-        <StTop>
-          <button>수정</button>
-          <button>삭제</button>
-        </StTop>
-        <StName>중꺾마</StName>
-        <h1>리액트 마스터하기</h1>
-        <StHr />
-        <StBody>이번년도에 리액트 마스터해서 취업하겠습니다!</StBody>
-      </StContent>
+      {total?.map((total) => (
+        <StContent key={total.id}>
+          <StTop>
+            <CustomButton
+              value="수정"
+              css={buttonCss}
+              hover={hoverCss}
+              onClick={() => {
+                goUpdatePage(total.id);
+              }}
+            ></CustomButton>
+            <CustomButton
+              value="삭제"
+              css={buttonCss}
+              hover={hoverCss}
+              onClick={() => {
+                deleteHandler(total.id);
+              }}
+            ></CustomButton>
+          </StTop>
+          <StName>{total.name}</StName>
+          <h1>{total.title}</h1>
+          <StHr />
+          <StBody>{total.body}</StBody>
+        </StContent>
+      ))}
     </>
   );
 };

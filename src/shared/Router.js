@@ -5,15 +5,17 @@ import Detail from "../pages/Detail";
 import Home from "../pages/Home";
 import Write from "../pages/Write";
 import Update from "../pages/Update";
+import Hometest from "../pages/Hometest";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/hometest" element={<Hometest />} />
+        <Route path="/detail/:id" element={<Detail />} />
         <Route path="/write" element={<Write />} />
-        <Route path="/detail/update" element={<Update />} />
+        <Route path="/detail/:id/update" element={<Update />} />
       </Routes>
     </BrowserRouter>
   );
