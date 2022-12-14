@@ -10,21 +10,16 @@ const initialState = {
 
 export const __updatePlans = createAsyncThunk(
   "plans/updatePans",
+
   async (payload, thunkAPI) => {
-    //console.log("payload_update");
-    //console.log(payload);
-    const { id, ...rest } = payload;
-    //console.log(id);
-    //console.log("...rest");
-    //console.log(rest); // 와 ㅅㅂ 뒤질뻔햇네.
+    // const { id, ...rest } = payload;
     try {
-      const data = axios.patch(`http://localhost:3001/plans/${id}`, rest);
-      //console.log("data?");
-      //console.log(data.data);
+      const data = await axios.patch(
+        `http://localhost:3001/plans/${payload.id}`,
+        payload
+      );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      //console.log("this2?");
-      //console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -32,16 +27,10 @@ export const __updatePlans = createAsyncThunk(
 export const __createPlans = createAsyncThunk(
   "plans/createPlans",
   async (payload, thunkAPI) => {
-    console.log("payload");
-    console.log(payload);
     try {
       const data = await axios.post("http://localhost:3001/plans", payload);
-      //console.log("data?");
-      //console.log("data.data", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      //console.log("this2?");
-      //console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -51,10 +40,8 @@ export const __getPlans = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get("http://localhost:3001/plans");
-      // console.log(data); // 잘처리되면 fullfiled
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      //console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -63,7 +50,6 @@ export const __deletePlans = createAsyncThunk(
   "todos/deleteTodos",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload);
       const data = await axios.delete(
         `http://localhost:3001/plans/${payload.id}`
       );
@@ -100,10 +86,8 @@ export const plansSlice = createSlice({
     },
     [__createPlans.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      console.log("action.payload");
-      console.log(action.payload.data);
-      state.plans = [...state.plans, action.payload.data];
-      console.log(state.plans);
+      state.plans = [...state.plans, action.payload];
+
       // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
     },
     [__deletePlans.pending]: (state) => {
@@ -114,6 +98,16 @@ export const plansSlice = createSlice({
       state.plans = state.plans;
     },
     [__deletePlans.fulfilled]: (state) => {
+      state.plans = state.plans;
+    },
+    [__updatePlans.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__updatePlans.rejected]: (state) => {
+      state.isLoading = false;
+      state.plans = state.plans;
+    },
+    [__updatePlans.fulfilled]: (state, action) => {
       state.plans = state.plans;
     },
   },

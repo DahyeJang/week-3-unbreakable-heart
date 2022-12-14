@@ -18,12 +18,6 @@ const Home = () => {
     fetchPlans();
   }, [setPlans]);
 
-  // console.log("plans", plans);
-
-  // const aaa = plans.map((plan) => {
-  //   return console.log(plan.name);
-  // });
-
   return (
     <div>
       <Layout>

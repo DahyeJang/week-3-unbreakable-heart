@@ -6,18 +6,8 @@ import Layout from "../components/Layout";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import { __deletePlans, __updatePlans } from "../redux/modules/plansSlicer";
-// const Header = styled.div`
-//   width: 80%;
-//   height: 60px;
-//   background: black;
-//   margin: 0 auto;
-//   border-radius: 0% 0% 50px 50px;
-//   color: orange;
-//   padding-left: 30px;
-//   padding-top: 20px;
-//   font-size: 1.5em;
-// `;
+import { __updatePlans } from "../redux/modules/plansSlicer";
+
 const ContentBox = styled.div`
   width: 70%;
   height: 600px;
@@ -64,10 +54,9 @@ const ContentTextArea = styled.textarea`
 `;
 const Update = () => {
   const dispatch = useDispatch();
-  const params = useParams();
-  console.log(params);
+  const { id } = useParams();
   const { plans } = useSelector((state) => state.plans);
-  const total = plans.filter((plan) => plan.id === params.id);
+  const total = plans.filter((plan) => plan.id === id);
 
   const [plan, setPlan] = useState({
     id: total[0].id,
@@ -77,11 +66,9 @@ const Update = () => {
   });
   const navigate = useNavigate();
 
-  function updateHandler(id, state) {
-    console.log("approch update");
-
+  function updateHandler() {
     dispatch(__updatePlans(plan));
-    navigate("/");
+    navigate(`/detail/${id}`);
   }
   const buttonCss =
     "font-size: 18px; width : 20%; height : fit-content;  border : none; margin : 20px   auto;" +
@@ -92,7 +79,7 @@ const Update = () => {
     <Layout>
       <Header />
       {total?.map((total) => (
-        <ContentBox key={params.id}>
+        <ContentBox key={total.id}>
           <ContentLiner>
             <div>
               <div className="CL_label">작성자 : </div>
@@ -106,8 +93,6 @@ const Update = () => {
                     ...plan,
                     name: value,
                   });
-
-                  console.log(plan);
                 }}
               ></input>
             </div>
@@ -125,8 +110,6 @@ const Update = () => {
                     ...plan,
                     title: value,
                   });
-
-                  console.log(plan);
                 }}
               ></input>
             </div>
@@ -139,15 +122,13 @@ const Update = () => {
                 ...plan,
                 body: value,
               });
-
-              console.log(plan);
             }}
           ></ContentTextArea>
           <CustomButton
             value="수정하기"
             css={buttonCss}
             hover={hoverCss}
-            onClick={() => updateHandler(params.id, plan)}
+            onClick={() => updateHandler(total.id, plan)}
           ></CustomButton>
         </ContentBox>
       ))}

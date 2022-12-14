@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { __getPlans, __deletePlans } from "../redux/modules/plansSlicer";
-import { useEffect } from "react";
+import useED from "./hooks/useED";
 import CustomButton from "./CustomButton";
 
 const DetailPlan = () => {
@@ -13,28 +13,22 @@ const DetailPlan = () => {
     " font-size: 22px; width :10%; : fit-content; height : fit-content;  border : none; background: black; color : orange; border-radius :20px;";
   const hoverCss = "background-color:#FF5F00; color:black; transition: 0.7s;";
 
-  useEffect(() => {
-    dispatch(__getPlans());
-  }, [dispatch]);
+  useED(__getPlans);
 
   function deleteHandler(id) {
-    console.log("approcing delete");
-    console.log(id);
     dispatch(__deletePlans({ id }));
     navigate("/");
   }
   function goUpdatePage(id) {
-    console.log("approcing delete");
     navigate(`/detail/${id}/update`);
   }
   const params = useParams();
   const { plans } = useSelector((state) => state.plans);
   const total = plans.filter((plan) => plan.id === params.id);
-  console.log(total);
   return (
     <>
       {total?.map((total) => (
-        <StContent>
+        <StContent key={total.id}>
           <StTop>
             <CustomButton
               value="수정"

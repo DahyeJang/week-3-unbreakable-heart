@@ -24,7 +24,7 @@ export const __createComments = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.post("http://localhost:3001/comments", payload);
-      return thunkAPI.fulfillWithValue(data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -35,10 +35,9 @@ export const __deleteComments = createAsyncThunk(
   "todos/deleteComments",
   async (payload, thunkAPI) => {
     try {
-      console.log("payload:", payload);
-      // const data = await axios.delete(
-      //   `http://localhost:3001/comments/${payload}`
-      // );
+      const data = await axios.delete(
+        `http://localhost:3001/comments/${payload}`
+      );
       //todos: state.comments.filter((comment) => comment.id !== payload)
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
@@ -72,7 +71,7 @@ export const plansSlice = createSlice({
     },
     [__createComments.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments = [...state.comments, action.payload.data];
+      state.comments = [...state.comments, action.payload];
     },
     [__deleteComments.pending]: (state) => {
       state.isLoading = true;
@@ -82,8 +81,6 @@ export const plansSlice = createSlice({
       state.comments = state.comments;
     },
     [__deleteComments.fulfilled]: (state, action) => {
-      //console.log(current(state).comments);
-      //console.log(action);
       //state.comments = state.comments;
       state.comments = state.comments.filter(
         (comment) => comment.id !== action.payload

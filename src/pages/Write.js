@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import CustomButton from "../components/CustomButton";
 import styled from "styled-components";
 import Header from "../components/Header";
@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import { useDispatch } from "react-redux";
 import { __createPlans } from "../redux/modules/plansSlicer";
 import { useNavigate } from "react-router-dom";
+import useIP from "../components/hooks/useIP";
 
 const ContentBox = styled.div`
   width: 70%;
@@ -55,20 +56,16 @@ const ContentTextArea = styled.textarea`
 const Write = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [post, setPost] = useState({
+  const [post, writeHandler] = useIP({
     name: "",
     title: "",
     body: "",
   });
 
   function createHandler() {
-    console.log("access createHandle");
-    console.log(post);
     dispatch(__createPlans(post));
     navigate("/");
   }
-
-  console.log(post);
 
   const buttonCss =
     "font-size: 18px; width : 20%; height : fit-content;  border : none; margin : 20px   auto;" +
@@ -84,14 +81,17 @@ const Write = () => {
             <div className="CL_label">작성자 : </div>
             <input
               type="text"
+              name="name"
               className="CL_content"
-              onChange={(e) => {
-                const { value } = e.target;
-                setPost({
-                  ...post,
-                  name: value,
-                });
-              }}
+              value={post.name}
+              onChange={writeHandler}
+              // onChange={(e) => {
+              //   const { value } = e.target;
+              //   setPost({
+              //     ...post,
+              //     name: value,
+              //   });
+              // }}
             ></input>
           </div>
         </ContentLiner>
@@ -100,25 +100,31 @@ const Write = () => {
             <div className="CL_label">제목 :</div>
             <input
               type="text"
+              name="title"
               className="CL_content"
-              onChange={(e) => {
-                const { value } = e.target;
-                setPost({
-                  ...post,
-                  title: value,
-                });
-              }}
+              value={post.title}
+              onChange={writeHandler}
+              // onChange={(e) => {
+              //   const { value } = e.target;
+              //   setPost({
+              //     ...post,
+              //     title: value,
+              //   });
+              // }}
             ></input>
           </div>
         </ContentLiner>
         <ContentTextArea
-          onChange={(e) => {
-            const { value } = e.target;
-            setPost({
-              ...post,
-              body: value,
-            });
-          }}
+          name="body"
+          value={post.body}
+          onChange={writeHandler}
+          // onChange={(e) => {
+          //   const { value } = e.target;
+          //   setPost({
+          //     ...post,
+          //     body: value,
+          //   });
+          // }}
         ></ContentTextArea>
         <CustomButton
           value="글쓰기"
