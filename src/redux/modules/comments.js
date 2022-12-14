@@ -45,7 +45,25 @@ export const __deleteComments = createAsyncThunk(
     }
   }
 );
+export const __updateComments = createAsyncThunk(
+  "comments/updateComments",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    const { id, ...rest } = payload;
 
+    try {
+      const data = await axios.patch(
+        `http://localhost:3001/comments/${id}`,
+        rest
+      );
+      console.log({ data });
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 export const plansSlice = createSlice({
   name: "comments",
   initialState,
@@ -85,6 +103,24 @@ export const plansSlice = createSlice({
       state.comments = state.comments.filter(
         (comment) => comment.id !== action.payload
       );
+    },
+    [__updateComments.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.comments = state.comments;
+      alert("수정에 문제가발생했습니다.");
+    },
+    [__updateComments.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__updateComments.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.comments = state.comments.map((comment) => {
+        if (comment.id === action.payload.id) {
+          return { ...action.payload };
+        } else {
+          return comment;
+        }
+      });
     },
   },
 });
