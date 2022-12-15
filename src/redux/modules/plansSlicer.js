@@ -95,7 +95,6 @@ export const plansSlice = createSlice({
     },
     [__deletePlans.fulfilled]: (state, action) => {
       state.plans = state.plans.filter((planT) => {
-        console.log(planT.id, "111", action.payload.id);
         if (planT.id !== action.payload.id) {
           return true;
         }
@@ -110,7 +109,7 @@ export const plansSlice = createSlice({
       state.plans = state.plans;
     },
     [__updatePlans.fulfilled]: (state, action) => {
-      state.plans = state.plans;
+      state.plans = [action.payload];
     },
   },
 });

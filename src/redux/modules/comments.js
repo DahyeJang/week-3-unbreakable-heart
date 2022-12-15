@@ -51,10 +51,7 @@ export const __updateComments = createAsyncThunk(
     const { id, ...rest } = payload;
 
     try {
-      const data = await axios.patch(
-        `https://jet-sulfuric-licorice.glitch.me/comments/${id}`,
-        rest
-      );
+      const data = await axios.patch(`${DB}/comments/${id}`, rest);
 
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
