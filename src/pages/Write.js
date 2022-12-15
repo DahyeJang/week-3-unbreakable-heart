@@ -7,49 +7,55 @@ import { useDispatch } from "react-redux";
 import { __createPlans } from "../redux/modules/plansSlicer";
 import { useNavigate } from "react-router-dom";
 import useIP from "../components/hooks/useIP";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ContentBox = styled.div`
-  /* width: 70%; */
-  height: 600px;
-  margin: 50px auto;
+  max-width: 100%;
+  height: 500px;
+  margin: 50px auto 0;
   display: flex;
   flex-direction: column;
   border: 1px solid black;
   justify-content: flex-start;
   border-radius: 30px;
   gap: 10px;
+  padding: 30px 50px;
 `;
-
-const ContentLiner = styled.div`
-  width: 78%;
-  height: 15%;
-  margin: 20px auto;
-
-  .CL_label {
-    width: inherit;
-    height: 50%;
-    margin-bottom: 10px;
-  }
-  .CL_content {
-    width: 100%;
-    padding-left: 3%;
-    height: 50%;
-    font-size: 20px;
-    border: 1px solid silver;
-    border-radius: 20px;
+const NaDiv = styled.div`
+  width: 28%;
+  display: flex;
+  justify-content: end;
+  font-size: 20px;
+  .CL_Name {
+    width: 150px;
+    margin-left: 10px;
+    border-radius: 10px;
   }
 `;
+const TiDiv = styled.div`
+  width: 37%;
+  display: flex;
+  justify-content: end;
+  font-size: 20px;
+  .CL_Title {
+    width: 250px;
+    margin-left: 10px;
+    border-radius: 10px;
+  }
+`;
+
 const ContentTextArea = styled.textarea`
   width: 80%;
-  height: 59%;
-
-  background: repeating-linear-gradient(red, red 1px, 0, yellow 20px);
-  max-height: 800px;
-  border: 1px solid black;
+  height: 60%;
+  background: repeating-linear-gradient(red, black 0.5px, 0, #fffbe6 30px);
+  max-height: 700px;
+  border: 2px solid black;
   border-radius: 20px;
-  margin: 0 auto;
-  padding: 3%;
+  margin: 10px auto;
+  padding: 2%;
   display: flex;
+  font-size: 30px;
 `;
 //css
 const Write = () => {
@@ -63,11 +69,11 @@ const Write = () => {
 
   function createHandler() {
     if (post.name.trim() === "") {
-      alert("닉네임이 비어져 있습니다!");
+      toast("닉네임이 비어져 있습니다!");
     } else if (post.title.trim() === "") {
-      alert("제목이 비어져 있습니다!");
+      toast("제목이 비어져 있습니다!");
     } else if (post.body.trim() === "") {
-      alert("내용이 비어져 있습니다!");
+      toast("내용이 비어져 있습니다!");
     } else {
       dispatch(__createPlans(post));
       navigate("/");
@@ -83,44 +89,42 @@ const Write = () => {
     <Layout>
       <Header />
       <ContentBox>
-        <div>
-          <ContentLiner>
-            <div className="CL_label">작성자 : </div>
-            <input
-              type="text"
-              name="name"
-              className="CL_content"
-              value={post.name}
-              onChange={writeHandler}
-              // onChange={(e) => {
-              //   const { value } = e.target;
-              //   setPost({
-              //     ...post,
-              //     name: value,
-              //   });
-              // }}
-            ></input>
-          </ContentLiner>
-          <ContentLiner>
-            <div>
-              <div className="CL_label">제목 :</div>
-              <input
-                type="text"
-                name="title"
-                className="CL_content"
-                value={post.title}
-                onChange={writeHandler}
-                // onChange={(e) => {
-                //   const { value } = e.target;
-                //   setPost({
-                //     ...post,
-                //     title: value,
-                //   });
-                // }}
-              ></input>
-            </div>
-          </ContentLiner>
-        </div>
+        <NaDiv>
+          작성자 :
+          <input
+            type="text"
+            name="name"
+            className="CL_Name"
+            value={post.name}
+            onChange={writeHandler}
+            maxLength={7}
+            // onChange={(e) => {
+            //   const { value } = e.target;
+            //   setPost({
+            //     ...post,
+            //     name: value,
+            //   });
+            // }}
+          />
+        </NaDiv>
+        <TiDiv>
+          제목 :
+          <input
+            type="text"
+            name="title"
+            className="CL_Title"
+            value={post.title}
+            onChange={writeHandler}
+            maxLength={15}
+            // onChange={(e) => {
+            //   const { value } = e.target;
+            //   setPost({
+            //     ...post,
+            //     title: value,
+            //   });
+            // }}
+          ></input>
+        </TiDiv>
         <ContentTextArea
           name="body"
           value={post.body}
@@ -142,6 +146,7 @@ const Write = () => {
           }}
         ></CustomButton>
       </ContentBox>
+      <ToastContainer position="top-center" theme="dark" />
     </Layout>
   );
 };
