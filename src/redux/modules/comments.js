@@ -12,7 +12,7 @@ export const __getComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(
-        "https://jet-sulfuric-licorice.glitch.me/comments"
+        "https://jet-sulfuric-licorice.glitch.me//comments"
       );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -22,7 +22,7 @@ export const __getComment = createAsyncThunk(
 );
 
 export const __createComments = createAsyncThunk(
-  "comments/createComments",
+  "comments/cre atecomments",
   async (payload, thunkAPI) => {
     try {
       const data = await axios.post(
@@ -37,7 +37,7 @@ export const __createComments = createAsyncThunk(
 );
 
 export const __deleteComments = createAsyncThunk(
-  "todos/deleteComments",
+  "todos/deletecomments",
   async (payload, thunkAPI) => {
     try {
       const data = await axios.delete(
@@ -50,8 +50,24 @@ export const __deleteComments = createAsyncThunk(
     }
   }
 );
+export const __updateComments = createAsyncThunk(
+  "comments/updateComments",
+  async (payload, thunkAPI) => {
+    const { id, ...rest } = payload;
 
-export const plansSlice = createSlice({
+    try {
+      const data = await axios.patch(
+        `https://jet-sulfuric-licorice.glitch.me/comments/${id}`,
+        rest
+      );
+
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.error);
+    }
+  }
+);
+export const commentsSlice = createSlice({
   name: "comments",
   initialState,
   reducers: {},
@@ -67,7 +83,7 @@ export const plansSlice = createSlice({
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
-    [__createComments.rejected]: (state, action) => {
+    [__createComments.rejected]: (state) => {
       state.isLoading = false;
       state.comments = state.comments;
     },
@@ -86,12 +102,29 @@ export const plansSlice = createSlice({
       state.comments = state.comments;
     },
     [__deleteComments.fulfilled]: (state, action) => {
+      //state.comments = state.comments;
       state.comments = state.comments.filter(
         (comment) => comment.id !== action.payload
       );
     },
+    [__updateComments.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [__updateComments.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__updateComments.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.comments = state.comments.map((comment) => {
+        if (comment.id === action.payload.id) {
+          return { ...action.payload };
+        } else {
+          return comment;
+        }
+      });
+    },
   },
 });
 
-export const {} = plansSlice.actions;
-export default plansSlice.reducer;
+export const {} = commentsSlice.actions;
+export default commentsSlice.reducer;

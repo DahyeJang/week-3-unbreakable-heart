@@ -19,7 +19,7 @@ function CommentAdd() {
   });
 
   const buttonCss =
-    "background-color: #ff5f00; width: 140px; height: 40px;border-radius: 20px; border: none; color: black; font-weight: 700; font-size: 15px;";
+    " width: 140px; height: 40px;border-radius: 20px; border: none; color: black; font-weight: 700; font-size: 15px;";
 
   // const onChangeHandler = (event) => {
   //   const { name, value } = event.target;
@@ -77,7 +77,7 @@ const StForm = styled.form`
   border-radius: 20px;
   align-items: center;
   padding: 30px;
-  background-color: #064f00;
+  background-color: black;
   margin-top: 20px;
 `;
 
