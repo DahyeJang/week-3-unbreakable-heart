@@ -15,7 +15,7 @@ export const __updatePlans = createAsyncThunk(
     // const { id, ...rest } = payload;
     try {
       const data = await axios.patch(
-        `https://w5-hanghae-board-server-five.vercel.app/plans/${payload.id}`,
+        `https://jet-sulfuric-licorice.glitch.me/plans/${payload.id}`,
         payload
       );
       return thunkAPI.fulfillWithValue(data.data);
@@ -29,7 +29,7 @@ export const __createPlans = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.post(
-        "https://w5-hanghae-board-server-five.vercel.app/plans",
+        "https://jet-sulfuric-licorice.glitch.me/plans",
         payload
       );
       return thunkAPI.fulfillWithValue(data.data);
@@ -43,7 +43,7 @@ export const __getPlans = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(
-        "https://w5-hanghae-board-server-five.vercel.app/plans"
+        "https://jet-sulfuric-licorice.glitch.me/plans"
       );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -56,10 +56,9 @@ export const __deletePlans = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.delete(
-        `https://w5-hanghae-board-server-five.vercel.app/plans/${payload.id}`
+        `https://jet-sulfuric-licorice.glitch.me/plans/${payload.id}`
       );
-
-      return thunkAPI.fulfillWithValue(data.data);
+      return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -102,8 +101,14 @@ export const plansSlice = createSlice({
       state.isLoading = false;
       state.plans = state.plans;
     },
-    [__deletePlans.fulfilled]: (state) => {
-      state.plans = state.plans;
+    [__deletePlans.fulfilled]: (state, action) => {
+      state.plans = state.plans.filter((planT) => {
+        console.log(planT.id, "111", action.payload.id);
+        if (planT.id !== action.payload.id) {
+          return true;
+        }
+        return false;
+      });
     },
     [__updatePlans.pending]: (state) => {
       state.isLoading = true;

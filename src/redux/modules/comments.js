@@ -12,7 +12,7 @@ export const __getComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(
-        "https://w5-hanghae-board-server-five.vercel.app/comments"
+        "https://jet-sulfuric-licorice.glitch.me/comments"
       );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -26,7 +26,7 @@ export const __createComments = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.post(
-        "https://w5-hanghae-board-server-five.vercel.app/comments",
+        "https://jet-sulfuric-licorice.glitch.me/comments",
         payload
       );
       return thunkAPI.fulfillWithValue(data.data);
@@ -41,7 +41,7 @@ export const __deleteComments = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.delete(
-        `https://w5-hanghae-board-server-five.vercel.app/comments/${payload}`
+        `https://jet-sulfuric-licorice.glitch.me/comments/${payload}`
       );
       //todos: state.comments.filter((comment) => comment.id !== payload)
       return thunkAPI.fulfillWithValue(payload);
@@ -86,7 +86,6 @@ export const plansSlice = createSlice({
       state.comments = state.comments;
     },
     [__deleteComments.fulfilled]: (state, action) => {
-      //state.comments = state.comments;
       state.comments = state.comments.filter(
         (comment) => comment.id !== action.payload
       );
