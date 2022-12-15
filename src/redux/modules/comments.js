@@ -2,6 +2,8 @@ import { createSlice, current } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export const DB = process.env.REACT_APP_APPDBSERVER;
+
 const initialState = {
   comments: [],
   isLoading: false,
@@ -11,9 +13,7 @@ export const __getComment = createAsyncThunk(
   "comments/getcomments",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get(
-        "https://jet-sulfuric-licorice.glitch.me//comments"
-      );
+      const data = await axios.get(`${DB}/comments`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -25,10 +25,7 @@ export const __createComments = createAsyncThunk(
   "comments/cre atecomments",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post(
-        "https://jet-sulfuric-licorice.glitch.me/comments",
-        payload
-      );
+      const data = await axios.post(`${DB}/comments`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -40,9 +37,7 @@ export const __deleteComments = createAsyncThunk(
   "todos/deletecomments",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.delete(
-        `https://jet-sulfuric-licorice.glitch.me/comments/${payload}`
-      );
+      const data = await axios.delete(`${DB}/comments/${payload}`);
       //todos: state.comments.filter((comment) => comment.id !== payload)
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
