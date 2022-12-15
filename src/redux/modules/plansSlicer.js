@@ -15,7 +15,7 @@ export const __updatePlans = createAsyncThunk(
     // const { id, ...rest } = payload;
     try {
       const data = await axios.patch(
-        `http://localhost:3001/plans/${payload.id}`,
+        `https://jet-sulfuric-licorice.glitch.me/plans/${payload.id}`,
         payload
       );
       return thunkAPI.fulfillWithValue(data.data);
@@ -28,7 +28,10 @@ export const __createPlans = createAsyncThunk(
   "plans/createPlans",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post("http://localhost:3001/plans", payload);
+      const data = await axios.post(
+        "https://jet-sulfuric-licorice.glitch.me/plans",
+        payload
+      );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -39,7 +42,9 @@ export const __getPlans = createAsyncThunk(
   "todos/getPlans",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/plans");
+      const data = await axios.get(
+        "https://jet-sulfuric-licorice.glitch.me/plans"
+      );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -51,10 +56,9 @@ export const __deletePlans = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.delete(
-        `http://localhost:3001/plans/${payload.id}`
+        `https://jet-sulfuric-licorice.glitch.me/plans/${payload.id}`
       );
-
-      return thunkAPI.fulfillWithValue(data.data);
+      return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -97,8 +101,14 @@ export const plansSlice = createSlice({
       state.isLoading = false;
       state.plans = state.plans;
     },
-    [__deletePlans.fulfilled]: (state) => {
-      state.plans = state.plans;
+    [__deletePlans.fulfilled]: (state, action) => {
+      state.plans = state.plans.filter((planT) => {
+        console.log(planT.id, "111", action.payload.id);
+        if (planT.id !== action.payload.id) {
+          return true;
+        }
+        return false;
+      });
     },
     [__updatePlans.pending]: (state) => {
       state.isLoading = true;
