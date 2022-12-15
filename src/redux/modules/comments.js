@@ -2,6 +2,8 @@ import { createSlice, current } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export const DB = process.env.REACT_APP_APPDBSERVER;
+
 const initialState = {
   comments: [],
   isLoading: false,
@@ -11,7 +13,7 @@ export const __getComment = createAsyncThunk(
   "comments/getcomments",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/comments");
+      const data = await axios.get(`${DB}/comments`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -20,10 +22,10 @@ export const __getComment = createAsyncThunk(
 );
 
 export const __createComments = createAsyncThunk(
-  "comments/createComments",
+  "comments/cre atecomments",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post("http://localhost:3001/comments", payload);
+      const data = await axios.post(`${DB}/comments`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -32,12 +34,10 @@ export const __createComments = createAsyncThunk(
 );
 
 export const __deleteComments = createAsyncThunk(
-  "todos/deleteComments",
+  "todos/deletecomments",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.delete(
-        `http://localhost:3001/comments/${payload}`
-      );
+      const data = await axios.delete(`${DB}/comments/${payload}`);
       //todos: state.comments.filter((comment) => comment.id !== payload)
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
@@ -48,23 +48,18 @@ export const __deleteComments = createAsyncThunk(
 export const __updateComments = createAsyncThunk(
   "comments/updateComments",
   async (payload, thunkAPI) => {
-    console.log(payload);
     const { id, ...rest } = payload;
 
     try {
-      const data = await axios.patch(
-        `http://localhost:3001/comments/${id}`,
-        rest
-      );
-      console.log({ data });
+      const data = await axios.patch(`${DB}/comments/${id}`, rest);
+
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error);
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.error);
     }
   }
 );
-export const plansSlice = createSlice({
+export const commentsSlice = createSlice({
   name: "comments",
   initialState,
   reducers: {},
@@ -80,7 +75,7 @@ export const plansSlice = createSlice({
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
-    [__createComments.rejected]: (state, action) => {
+    [__createComments.rejected]: (state) => {
       state.isLoading = false;
       state.comments = state.comments;
     },
@@ -104,10 +99,8 @@ export const plansSlice = createSlice({
         (comment) => comment.id !== action.payload
       );
     },
-    [__updateComments.rejected]: (state, action) => {
+    [__updateComments.rejected]: (state) => {
       state.isLoading = false;
-      state.comments = state.comments;
-      alert("수정에 문제가발생했습니다.");
     },
     [__updateComments.pending]: (state) => {
       state.isLoading = true;
@@ -125,5 +118,5 @@ export const plansSlice = createSlice({
   },
 });
 
-export const {} = plansSlice.actions;
-export default plansSlice.reducer;
+export const {} = commentsSlice.actions;
+export default commentsSlice.reducer;

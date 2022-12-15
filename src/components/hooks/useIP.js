@@ -8,17 +8,15 @@ const useInput = (initialState) => {
 
   // 3. 핸들러 로직도 구현합니다.
   const handler = (e, comment) => {
-    console.log(comment);
     const { value, name } = e.target;
     if (comment) {
-      setData({ ...comment });
+      setData((prev) => ({ ...prev, ...comment }));
     } else {
       setData({
         ...data,
         [name]: value,
       });
     }
-
     // setData({
     //   ...data,
     //   [name]: value,

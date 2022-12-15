@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export const DB = process.env.REACT_APP_APPDBSERVER;
+
 const initialState = {
   plans: [],
   isLoading: false,
@@ -14,10 +16,7 @@ export const __updatePlans = createAsyncThunk(
   async (payload, thunkAPI) => {
     // const { id, ...rest } = payload;
     try {
-      const data = await axios.patch(
-        `http://localhost:3001/plans/${payload.id}`,
-        payload
-      );
+      const data = await axios.patch(`${DB}/plans/${payload.id}`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -28,7 +27,7 @@ export const __createPlans = createAsyncThunk(
   "plans/createPlans",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post("http://localhost:3001/plans", payload);
+      const data = await axios.post(`${DB}/plans`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -39,7 +38,7 @@ export const __getPlans = createAsyncThunk(
   "todos/getPlans",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/plans");
+      const data = await axios.get(`${DB}/plans`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -50,11 +49,8 @@ export const __deletePlans = createAsyncThunk(
   "todos/deleteTodos",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.delete(
-        `http://localhost:3001/plans/${payload.id}`
-      );
-
-      return thunkAPI.fulfillWithValue(data.data);
+      const data = await axios.delete(`${DB}/plans/${payload.id}`);
+      return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -97,8 +93,13 @@ export const plansSlice = createSlice({
       state.isLoading = false;
       state.plans = state.plans;
     },
-    [__deletePlans.fulfilled]: (state) => {
-      state.plans = state.plans;
+    [__deletePlans.fulfilled]: (state, action) => {
+      state.plans = state.plans.filter((planT) => {
+        if (planT.id !== action.payload.id) {
+          return true;
+        }
+        return false;
+      });
     },
     [__updatePlans.pending]: (state) => {
       state.isLoading = true;
@@ -108,7 +109,7 @@ export const plansSlice = createSlice({
       state.plans = state.plans;
     },
     [__updatePlans.fulfilled]: (state, action) => {
-      state.plans = state.plans;
+      state.plans = [action.payload];
     },
   },
 });

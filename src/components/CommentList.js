@@ -204,6 +204,6 @@ const Molad = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 12px;
+    gap: 11px;
   }
 `;
