@@ -11,7 +11,9 @@ export const __getComment = createAsyncThunk(
   "comments/getcomments",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/comments");
+      const data = await axios.get(
+        "https://w5-hanghae-board-server-five.vercel.app/comments"
+      );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -23,7 +25,10 @@ export const __createComments = createAsyncThunk(
   "comments/createComments",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post("http://localhost:3001/comments", payload);
+      const data = await axios.post(
+        "https://w5-hanghae-board-server-five.vercel.app/comments",
+        payload
+      );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -36,7 +41,7 @@ export const __deleteComments = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.delete(
-        `http://localhost:3001/comments/${payload}`
+        `https://w5-hanghae-board-server-five.vercel.app/comments/${payload}`
       );
       //todos: state.comments.filter((comment) => comment.id !== payload)
       return thunkAPI.fulfillWithValue(payload);

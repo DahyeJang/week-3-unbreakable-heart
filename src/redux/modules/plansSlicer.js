@@ -15,7 +15,7 @@ export const __updatePlans = createAsyncThunk(
     // const { id, ...rest } = payload;
     try {
       const data = await axios.patch(
-        `http://localhost:3001/plans/${payload.id}`,
+        `https://w5-hanghae-board-server-five.vercel.app/plans/${payload.id}`,
         payload
       );
       return thunkAPI.fulfillWithValue(data.data);
@@ -28,7 +28,10 @@ export const __createPlans = createAsyncThunk(
   "plans/createPlans",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post("http://localhost:3001/plans", payload);
+      const data = await axios.post(
+        "https://w5-hanghae-board-server-five.vercel.app/plans",
+        payload
+      );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -39,7 +42,9 @@ export const __getPlans = createAsyncThunk(
   "todos/getPlans",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/plans");
+      const data = await axios.get(
+        "https://w5-hanghae-board-server-five.vercel.app/plans"
+      );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -51,7 +56,7 @@ export const __deletePlans = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.delete(
-        `http://localhost:3001/plans/${payload.id}`
+        `https://w5-hanghae-board-server-five.vercel.app/plans/${payload.id}`
       );
 
       return thunkAPI.fulfillWithValue(data.data);
