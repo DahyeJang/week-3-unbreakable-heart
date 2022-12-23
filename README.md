@@ -5,9 +5,8 @@
 
 ## 👤 팀원 소개
 + 장다혜 [DahyeJang](https://github.com/DahyeJang)
-+ 서강산 [dkaodkaork](https://github.com/dkaodkaork)
-+ 김동현 [dkaodkaork](https://github.com/dkaodkaork)
-
++ 백재현 
++ 김동현 
 <br />
 
 ## ⏳ 팀 프로젝트 기간
