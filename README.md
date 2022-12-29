@@ -5,8 +5,8 @@
 
 ## 👤 팀원 소개
 + 장다혜 [DahyeJang](https://github.com/DahyeJang)
-+ 백재현 
-+ 김동현 
++ 백재현 [elderanni](https://github.com/elderanni)
++ 김동현 [kdh8615](https://github.com/kdh8615)
 <br />
 
 ## ⏳ 팀 프로젝트 기간
@@ -16,17 +16,8 @@
 
 ## 🔑 구현 기능
 
-### 메인페이지
-+ 
-+ 
-
-### 상세 페이지
-+ 
-+ 
-
-### 댓글
-+ 
-+ 
+### 게시물 CRUD
+### 댓글 CRUD
 
 <br />
 
@@ -38,3 +29,8 @@
 + Redux-toolkit
 
 <br />
+
+## ⚙️ API
+<img width="864" alt="image" src="https://user-images.githubusercontent.com/105340850/209947840-bfa5d016-22a6-49fa-ba01-4eb8183efc74.png">
+<img width="853" alt="image" src="https://user-images.githubusercontent.com/105340850/209947913-e2d15c93-7bbf-4df4-a06d-86329e52a6ed.png">
+
